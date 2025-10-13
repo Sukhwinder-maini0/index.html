@@ -1,0 +1,49 @@
+<body>
+  <h2>hello kannu yrr main bnayi a ah website<br>
+  appa ehnde te chat kr leya krage</h2>
+  
+  <h2>Your Saved Text:</h2>
+  <p id="output">Nothing saved yet!</p>
+  <button id="editBtn">Edit Message</button>
+
+  <div class="popup" id="popup">
+    <div class="popup-box">
+      <h3>Enter something 👇</h3>
+      <input type="text" id="userInput" placeholder="Write something...">
+      <br>
+      <button id="saveBtn">Save</button>
+    </div>
+  </div>
+
+  <script>
+    const popup = document.getElementById('popup');
+    const input = document.getElementById('userInput');
+    const output = document.getElementById('output');
+    const saveBtn = document.getElementById('saveBtn');
+    const editBtn = document.getElementById('editBtn');
+
+    // 🔹 Check if text is already saved
+    const savedText = localStorage.getItem('userText');
+    if (savedText) {
+      output.textContent = savedText;
+      popup.style.display = 'none'; // Hide popup if text exists
+    }
+
+    // 🔹 Save button logic
+    saveBtn.addEventListener('click', () => {
+      const text = input.value.trim();
+      if (text !== '') {
+        output.textContent = text;
+        localStorage.setItem('userText', text); // Save permanently
+        popup.style.display = 'none'; // Hide popup
+        input.value = ''; // Clear input
+      }
+    });
+
+    // 🔹 Edit button logic
+    editBtn.addEventListener('click', () => {
+      popup.style.display = 'flex'; // Show popup again
+      input.value = localStorage.getItem('userText') || ''; // Pre-fill with saved text
+    });
+  </script>
+</body>
